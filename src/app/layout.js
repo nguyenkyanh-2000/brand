@@ -1,12 +1,12 @@
 "use client";
 
-import { motion, useCycle } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion, useCycle } from "framer-motion";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import SplashScreen from "./components/SplashScreen";
 
 import NavBar from "./components/navbar/NavBar";
 import NavMenu from "./components/NavMenu";
-import SplashScreen from "./components/SplashScreen";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
     window !== undefined
       ? window.localStorage.getItem("splashScreenPlayed")
       : "";
+
   const [isLoading, setIsLoading] = useState(isHomePage);
   const [isMenuOpened, setIsMenuOpened] = useCycle(false, true);
 
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
           <SplashScreen setIsLoading={setIsLoading} />
         ) : (
           <>
-            <div className="px-16 w-screen min-h-screen max-sm:px-5 ">
+            <div className="px-16 pt-10 w-screen min-h-screen max-sm:px-5">
               <NavMenu
                 isMenuOpened={isMenuOpened}
                 toggleNavMenu={setIsMenuOpened}

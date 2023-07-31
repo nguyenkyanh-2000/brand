@@ -49,7 +49,7 @@ function NavMenu({ toggleNavMenu, isMenuOpened }) {
           exit={"closed"}
           variants={variants}
           transition={{ duration: 1, ease: "easeInOut" }}
-          className="absolute flex flex-col top-0 left-0 px-16 pt-10 max-sm:px-5 w-full min-h-full bg-neutral-50 z-50"
+          className="fixed inset-0 flex flex-col px-16 py-10 max-sm:px-5 w-full min-h-full bg-neutral-50 z-50"
         >
           <div className="flex w-full justify-end pt-2">
             <IconButton
