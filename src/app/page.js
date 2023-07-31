@@ -7,36 +7,10 @@ import { AnimatedBanner } from "./components/AnimatedBanner";
 import { AnimatedSideBanner } from "./components/AnimatedSideBanner";
 
 function HomePage() {
-  const [animationTriggered, setAnimationTriggered] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(0);
   const splashScreenPlayed =
     window !== undefined
       ? window.localStorage.getItem("splashScreenPlayed")
       : "";
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
-
-    // Call handleResize initially to set the initial screen width
-    handleResize();
-
-    // Add event listener to handle window resize
-    window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!animationTriggered) {
-      // Animate the image to the specified position when the component mounts (initial render)
-      setAnimationTriggered(true);
-    }
-  }, [animationTriggered]);
 
   return (
     <div className="relative h-screen max-w-screen pt-10">
@@ -59,6 +33,7 @@ function HomePage() {
             y: splashScreenPlayed ? null : "-400",
           }}
           animate={{
+            opacity: 1,
             y: 0,
           }}
           transition={{
@@ -72,6 +47,7 @@ function HomePage() {
             width={"100%"}
             height={"100%"}
             objectFit="cover"
+            priority
           />
         </motion.div>
         <AnimatedSideBanner
