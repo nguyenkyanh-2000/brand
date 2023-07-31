@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           <SplashScreen setIsLoading={setIsLoading} />
         ) : (
           <>
-            <div className="px-16 pt-10 w-screen min-h-screen max-sm:px-5">
+            <div className="px-16 pt-10  min-h-screen max-sm:px-5">
               <NavMenu
                 isMenuOpened={isMenuOpened}
                 toggleNavMenu={setIsMenuOpened}
