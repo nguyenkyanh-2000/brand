@@ -18,6 +18,7 @@ const images = [
 ];
 
 const SplashScreen = ({ setIsLoading }) => {
+  console.log("Splash screen rendered");
   const [currentIndex, cycleIndex] = useCycle(
     ...images.map((_, index) => index)
   );
@@ -30,7 +31,7 @@ const SplashScreen = ({ setIsLoading }) => {
       } else {
         cycleIndex();
       }
-    }, 1250);
+    }, 1750);
 
     // Total time to exit the loading screen
     const timer = setTimeout(() => {
@@ -46,32 +47,35 @@ const SplashScreen = ({ setIsLoading }) => {
   return (
     <div className="relative h-screen w-screen">
       {images.map((imageUrl, index) => (
-        <motion.div
-          layoutId="main-image"
-          key={index}
-          className="absolute top-1/2 left-1/2 w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
-          style={{
-            opacity: index === currentIndex ? 1 : 0,
-            zIndex: index === currentIndex ? 1 : 0,
-          }}
-          initial={{ opacity: 0, x: "-50%", y: "-100%" }}
-          animate={{
-            opacity: index === currentIndex ? 1 : 0,
-            x: "-50%",
-            y: "-50%",
-          }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-        >
-          {index === currentIndex && (
-            <Image
-              src={imageUrl}
-              alt={`Image ${index + 1}`}
-              fill
-              priority={true}
-              sizes=""
-            />
-          )}
-        </motion.div>
+        <AnimatePresence key={index}>
+          <motion.div
+            layoutId="main-image"
+            key={index}
+            className="absolute top-1/2 left-1/2 w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
+            style={{
+              opacity: index === currentIndex ? 1 : 0,
+              zIndex: index === currentIndex ? 1 : 0,
+            }}
+            initial={{ opacity: 1, x: "-50%", y: "-100%" }}
+            animate={{
+              opacity: index === currentIndex ? 1 : 0,
+              x: "-50%",
+              y: "-50%",
+            }}
+            exit={{ opacity: 0, x: "-50%", y: "-50%" }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+          >
+            {index === currentIndex && (
+              <Image
+                src={imageUrl}
+                alt={`Image ${index + 1}`}
+                fill
+                priority={true}
+                sizes=""
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
       ))}
     </div>
   );

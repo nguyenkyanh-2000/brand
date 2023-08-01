@@ -3,20 +3,27 @@
 import { motion } from "framer-motion";
 
 const animation = {
-  initial: { y: 50 },
+  initial: { y: 50, opacity: 0 },
   animate: {
     y: 0,
+    opacity: 1,
     transition: {
-      ease: [0.6, 0.01, -0.05, 0.95],
-      duration: 2,
+      ease: "easeInOut",
+      duration: 1,
     },
   },
 };
 
-export const AnimatedBanner = ({ title, disabled }) => (
+export const AnimatedSideBanner = ({
+  title,
+  disabled,
+  className,
+  layoutId,
+}) => (
   <div className="overflow-hidden flex">
     <motion.span
-      className="relative inline-block whitespace-nowrap font-jost text-8xl max-md:mx-auto max-sm:text-4xl max-lg:text-6xl font-semibold -my-1"
+      layoutId={layoutId}
+      className={className}
       variants={disabled ? null : animation}
       initial="initial"
       animate="animate"

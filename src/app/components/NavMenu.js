@@ -6,6 +6,7 @@ import { HeartIcon } from "../../../public/icons";
 import { UserIcon } from "../../../public/icons";
 import { CartIcon } from "../../../public/icons";
 import { ExitIcon } from "../../../public/icons";
+import { AnimatedUnderlineLink } from "./AnimatedUnderline";
 
 const links = [
   { name: "home", to: "#", id: 1 },
@@ -49,7 +50,7 @@ function NavMenu({ toggleNavMenu, isMenuOpened }) {
           exit={"closed"}
           variants={variants}
           transition={{ duration: 1, ease: "easeInOut" }}
-          className="fixed inset-0 flex flex-col px-16 py-10 max-sm:px-5 w-full min-h-full bg-neutral-50 z-50"
+          className="fixed inset-0 flex flex-col px-16 p-10 max-sm:px-5 w-full min-h-full bg-neutral-50 z-50"
         >
           <div className="flex w-full justify-end pt-2">
             <IconButton
@@ -59,15 +60,7 @@ function NavMenu({ toggleNavMenu, isMenuOpened }) {
           </div>
           <div className="flex flex-col w-full h-full items-center justify-center flex-grow gap-3">
             {links.map(({ name, to, id }) => (
-              <motion.a
-                className="font-jost max-sm:text-4xl text-8xl hover:underline"
-                key={id}
-                href={to}
-                whileHover={{ scale: 1.1 }}
-                variants={itemVariants}
-              >
-                {name}
-              </motion.a>
+              <AnimatedUnderlineLink name={name} to={to} key={id} />
             ))}
           </div>
           <div className={"flex w-full justify-center gap-10 my-10"}>

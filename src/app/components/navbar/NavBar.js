@@ -1,7 +1,7 @@
 import React from "react";
 import IconButton from "./IconButton";
 import TextButton from "./TextButton";
-import { easeIn, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { MoonIcon } from "../../../../public/icons";
 import { HeartIcon } from "../../../../public/icons";
 import { UserIcon } from "../../../../public/icons";
@@ -12,7 +12,7 @@ function NavBar({ toggleNavMenu }) {
   return (
     <motion.div
       className="flex max-w-full h-10 items-center justify-between overflow-hidden"
-      initial={{ opacity: 0, y: -10 }}
+      initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
