@@ -1,12 +1,12 @@
 import React from "react";
-import IconButton from "./navbar/IconButton";
+import IconButton from "../_atoms/button/IconButton";
 import { AnimatePresence, motion } from "framer-motion";
-import { MoonIcon } from "../../../public/icons";
-import { HeartIcon } from "../../../public/icons";
-import { UserIcon } from "../../../public/icons";
-import { CartIcon } from "../../../public/icons";
-import { ExitIcon } from "../../../public/icons";
-import { AnimatedUnderlineLink } from "./AnimatedUnderline";
+import { MoonIcon } from "../../../../public/icons";
+import { HeartIcon } from "../../../../public/icons";
+import { UserIcon } from "../../../../public/icons";
+import { CartIcon } from "../../../../public/icons";
+import { ExitIcon } from "../../../../public/icons";
+import AnimatedUnderlineLink from "../_molecules/AnimatedUnderlineLink";
 
 const links = [
   { name: "home", to: "#", id: 1 },
@@ -54,15 +54,23 @@ function NavMenu({ toggleNavMenu, isMenuOpened }) {
         >
           <div className="flex w-full justify-end pt-2">
             <IconButton
+              width={24}
+              height={24}
               Icon={ExitIcon}
               onClick={() => toggleNavMenu()}
             ></IconButton>
           </div>
           <div className="flex flex-col w-full h-full items-center justify-center flex-grow gap-3">
             {links.map(({ name, to, id }) => (
-              <AnimatedUnderlineLink name={name} to={to} key={id} />
+              <AnimatedUnderlineLink
+                name={name}
+                to={to}
+                key={id}
+                textSize={"base"}
+              />
             ))}
           </div>
+
           <div className={"flex w-full justify-center gap-10 my-10"}>
             {icons.map(({ icon, to, id }) => (
               <motion.a

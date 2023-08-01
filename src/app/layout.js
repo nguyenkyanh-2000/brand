@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import SplashScreen from "./components/SplashScreen";
 
-import NavBar from "./components/navbar/NavBar";
-import NavMenu from "./components/NavMenu";
+import NavBar from "./components/_organisms/NavBar";
+import NavMenu from "./components/_organisms/NavMenu";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -33,16 +33,14 @@ export default function RootLayout({ children }) {
         {isLoading && isHomePage && !splashScreenPlayed ? (
           <SplashScreen setIsLoading={setIsLoading} />
         ) : (
-          <>
-            <div className="px-16 pt-10 min-h-screen max-sm:px-5">
-              <NavMenu
-                isMenuOpened={isMenuOpened}
-                toggleNavMenu={setIsMenuOpened}
-              />
-              <NavBar toggleNavMenu={setIsMenuOpened} />
-              {children}
-            </div>
-          </>
+          <div className="px-16 pt-10 max-sm:px-5">
+            <NavMenu
+              isMenuOpened={isMenuOpened}
+              toggleNavMenu={setIsMenuOpened}
+            />
+            <NavBar toggleNavMenu={setIsMenuOpened} />
+            {children}
+          </div>
         )}
       </body>
     </html>

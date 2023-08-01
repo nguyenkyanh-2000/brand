@@ -13,9 +13,9 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        bodoni: ["Bodoni Moda", "serif"],
-        lato: ["Lato", "sans-serif"],
-        jost: ["Jost", "sans-serif"],
+        accent: ["Bodoni Moda", "serif"],
+        secondary: ["Jost", "sans-serif"],
+        primary: ["Lato", "sans-serif"],
       },
     },
   },

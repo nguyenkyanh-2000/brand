@@ -14,10 +14,10 @@ const animation = {
 };
 
 export const AnimatedBanner = ({ title, disabled, layoutId }) => (
-  <div className="overflow-hidden flex">
+  <div className="overflow-hidden">
     <motion.span
       layoutId={layoutId}
-      className="relative inline-block whitespace-nowrap font-jost text-8xl max-md:mx-auto max-sm:text-4xl max-lg:text-6xl font-semibold -my-1"
+      className="inline-block whitespace-nowrap font-primary text-8xl max-md:mx-auto max-sm:text-4xl max-lg:text-6xl font-semibold -my-1"
       variants={disabled ? null : animation}
       initial="initial"
       animate="animate"

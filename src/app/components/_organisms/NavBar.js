@@ -1,6 +1,6 @@
 import React from "react";
-import IconButton from "./IconButton";
-import TextButton from "./TextButton";
+import IconButton from "../_atoms/button/IconButton";
+import TextButton from "../_atoms/button/TextButton";
 import { motion } from "framer-motion";
 import { MoonIcon } from "../../../../public/icons";
 import { HeartIcon } from "../../../../public/icons";
@@ -16,23 +16,28 @@ function NavBar({ toggleNavMenu }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <p className="font-bodoni font-bold text-[40px] max-sm:text-3xl">
+      <p className="font-accent font-bold text-[40px] max-sm:text-3xl">
         brand.
       </p>
       <div className="flex h-full gap-20 max-xl:hidden">
-        <TextButton>home</TextButton>
-        <TextButton>products</TextButton>
-        <TextButton>about</TextButton>
-        <TextButton>contact</TextButton>
+        <TextButton label={"home"} textSize="2xl" />
+        <TextButton label={"products"} textSize="2xl" />
+        <TextButton label={"about"} textSize="2xl" />
+        <TextButton label={"contact"} textSize="2xl" />
       </div>
       <div className="flex items-center h-full gap-8 max-xl:hidden">
-        <IconButton Icon={MoonIcon} />
-        <IconButton Icon={HeartIcon} />
-        <IconButton Icon={UserIcon} />
-        <IconButton Icon={CartIcon} />
+        <IconButton width={24} height={24} Icon={MoonIcon} />
+        <IconButton width={24} height={24} Icon={HeartIcon} />
+        <IconButton width={24} height={24} Icon={UserIcon} />
+        <IconButton width={24} height={24} Icon={CartIcon} />
       </div>
       <div className="flex items-center xl:hidden">
-        <IconButton Icon={HamburgerIcon} onClick={() => toggleNavMenu(true)} />
+        <IconButton
+          width={24}
+          height={24}
+          Icon={HamburgerIcon}
+          onClick={() => toggleNavMenu(true)}
+        />
       </div>
     </motion.div>
   );
