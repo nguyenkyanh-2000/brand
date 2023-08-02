@@ -18,7 +18,6 @@ const images = [
 ];
 
 const SplashScreen = ({ setIsLoading }) => {
-  console.log("Splash screen rendered");
   const [currentIndex, cycleIndex] = useCycle(
     ...images.map((_, index) => index)
   );

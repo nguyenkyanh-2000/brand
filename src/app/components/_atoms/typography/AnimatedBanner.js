@@ -1,28 +1,9 @@
-"use client";
+import SlideIn from "../../../animation/SlideIn";
 
-import { motion } from "framer-motion";
-
-const animation = {
-  initial: { y: 50 },
-  animate: {
-    y: 0,
-    transition: {
-      ease: [0.6, 0.01, -0.05, 0.95],
-      duration: 2,
-    },
-  },
-};
-
-export const AnimatedBanner = ({ title, disabled, layoutId }) => (
-  <div className="overflow-hidden">
-    <motion.span
-      layoutId={layoutId}
-      className="inline-block whitespace-nowrap font-primary text-8xl max-md:mx-auto max-sm:text-4xl max-lg:text-6xl font-semibold -my-1"
-      variants={disabled ? null : animation}
-      initial="initial"
-      animate="animate"
-    >
+export const AnimatedBanner = ({ title }) => (
+  <SlideIn direction="up">
+    <span className="inline-block whitespace-nowrap font-primary font-heavy text-4xl xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl">
       {title}
-    </motion.span>
-  </div>
+    </span>
+  </SlideIn>
 );

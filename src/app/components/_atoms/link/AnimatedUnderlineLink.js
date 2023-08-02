@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import AnimatedUnderline from "../_atoms/animation/AnimatedUnderline";
+import AnimatedUnderline from "../../../animation/AnimatedUnderline";
 
 const AnimatedUnderlineLink = ({ name, to, textSize, ...rest }) => {
   return (

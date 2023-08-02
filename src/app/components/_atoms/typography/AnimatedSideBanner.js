@@ -1,34 +1,10 @@
-"use client";
+import React from "react";
+import FadeIn from "../../../animation/FadeIn";
 
-import { motion } from "framer-motion";
-
-const animation = {
-  initial: { y: 50, opacity: 0 },
-  animate: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      ease: "easeInOut",
-      duration: 1,
-    },
-  },
-};
-
-export const AnimatedSideBanner = ({
-  title,
-  disabled,
-  className,
-  layoutId,
-}) => (
-  <div className="overflow-hidden flex">
-    <motion.span
-      layoutId={layoutId}
-      className={className}
-      variants={disabled ? null : animation}
-      initial="initial"
-      animate="animate"
-    >
+export const AnimatedSideBanner = ({ title }) => (
+  <FadeIn>
+    <span className="relative inline-block font-primary  md:text-base lg:text-xl font-light">
       {title}
-    </motion.span>
-  </div>
+    </span>
+  </FadeIn>
 );

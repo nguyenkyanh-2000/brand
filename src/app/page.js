@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BackgroundImage } from "../../public/images";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -13,21 +13,13 @@ function HomePage() {
     <div className="h-screen w-full">
       <div className="w-full flex flex-col justify-between">
         <div className="flex flex-col">
-          <AnimatedBanner
-            title={"Ordinary by Nature,"}
-            layoutId={"main-banner-1"}
-          />
-          <AnimatedBanner
-            title={"Unique by Choice"}
-            layoutId={"main-banner-2"}
-          />
+          <AnimatedBanner title={"Ordinary by Nature,"} />
+          <AnimatedBanner title={"Unique by Choice"} />
         </div>
 
         <div className="flex max-md:flex-col justify-between gap-5 max-md:items-center">
           <AnimatedSideBanner
-            className="relative inline-block font-primary lg:text-xl md:text-base font-light"
             title={"Reimagine your individuality with our products."}
-            layoutId={"side-banner-1"}
           />
 
           <motion.div
@@ -47,8 +39,6 @@ function HomePage() {
           </motion.div>
           <AnimatedSideBanner
             title={"Reimagine your individuality with our products."}
-            className="relative inline-block font-primary lg:text-xl md:text-base font-light"
-            layoutId={"side-banner-2"}
           />
         </div>
       </div>

@@ -1,89 +1,27 @@
 import React from "react";
+import { AnimatePresence } from "framer-motion";
 import IconButton from "../_atoms/button/IconButton";
-import { AnimatePresence, motion } from "framer-motion";
-import { MoonIcon } from "../../../../public/icons";
-import { HeartIcon } from "../../../../public/icons";
-import { UserIcon } from "../../../../public/icons";
-import { CartIcon } from "../../../../public/icons";
 import { ExitIcon } from "../../../../public/icons";
-import AnimatedUnderlineLink from "../_molecules/AnimatedUnderlineLink";
-
-const links = [
-  { name: "home", to: "#", id: 1 },
-  { name: "products", to: "#", id: 2 },
-  { name: "about", to: "#", id: 3 },
-  { name: "contact", to: "#", id: 4 },
-];
-
-const icons = [
-  { icon: <MoonIcon />, to: "#", id: 1 },
-  { icon: <HeartIcon />, to: "#", id: 2 },
-  { icon: <UserIcon />, to: "#", id: 3 },
-  { icon: <CartIcon />, to: "#", id: 4 },
-];
-
-const variants = {
-  open: {
-    opacity: 1,
-    x: 0,
-  },
-  closed: {
-    opacity: 0,
-    x: 1000,
-  },
-};
-
-const itemVariants = {
-  closed: {
-    opacity: 0,
-  },
-  open: { opacity: 1 },
-};
+import WholeScreenSlideIn from "@/app/animation/WholeScreenSlideIn";
+import NavigationIconsBar from "../_molecules/NavigationIconsBar";
+import MenuLinks from "../_atoms/link/MenuLinks";
 
 function NavMenu({ toggleNavMenu, isMenuOpened }) {
   return (
     <AnimatePresence>
       {isMenuOpened && (
-        <motion.aside
-          initial={"closed"}
-          animate={isMenuOpened ? "open" : "closed"}
-          exit={"closed"}
-          variants={variants}
-          transition={{ duration: 1, ease: "easeInOut" }}
-          className="fixed inset-0 flex flex-col px-16 p-10 max-sm:px-5 w-full min-h-full bg-neutral-50 z-50"
-        >
+        <WholeScreenSlideIn isOpen={isMenuOpened}>
           <div className="flex w-full justify-end pt-2">
             <IconButton
               width={24}
               height={24}
               Icon={ExitIcon}
               onClick={() => toggleNavMenu()}
-            ></IconButton>
+            />
           </div>
-          <div className="flex flex-col w-full h-full items-center justify-center flex-grow gap-3">
-            {links.map(({ name, to, id }) => (
-              <AnimatedUnderlineLink
-                name={name}
-                to={to}
-                key={id}
-                textSize={"base"}
-              />
-            ))}
-          </div>
-
-          <div className={"flex w-full justify-center gap-10 my-10"}>
-            {icons.map(({ icon, to, id }) => (
-              <motion.a
-                key={id}
-                href={to}
-                whileHover={{ scale: 1.1 }}
-                variants={itemVariants}
-              >
-                {icon}
-              </motion.a>
-            ))}
-          </div>
-        </motion.aside>
+          <MenuLinks />
+          <NavigationIconsBar />
+        </WholeScreenSlideIn>
       )}
     </AnimatePresence>
   );
