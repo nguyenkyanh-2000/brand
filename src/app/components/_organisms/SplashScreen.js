@@ -3,11 +3,11 @@
 import React, { useEffect } from "react";
 import { AnimatePresence, motion, useCycle } from "framer-motion";
 import Image from "next/image";
-import { SplashScreenImage1 } from "../../../public/images";
-import { SplashScreenImage2 } from "../../../public/images";
-import { SplashScreenImage3 } from "../../../public/images";
-import { SplashScreenImage4 } from "../../../public/images";
-import { BackgroundImage } from "../../../public/images";
+import { SplashScreenImage1 } from "../../../../public/images";
+import { SplashScreenImage2 } from "../../../../public/images";
+import { SplashScreenImage3 } from "../../../../public/images";
+import { SplashScreenImage4 } from "../../../../public/images";
+import { BackgroundImage } from "../../../../public/images";
 
 const images = [
   SplashScreenImage1,
@@ -30,7 +30,7 @@ const SplashScreen = ({ setIsLoading }) => {
       } else {
         cycleIndex();
       }
-    }, 1750);
+    }, 1250);
 
     // Total time to exit the loading screen
     const timer = setTimeout(() => {
@@ -46,23 +46,21 @@ const SplashScreen = ({ setIsLoading }) => {
   return (
     <div className="relative h-screen w-screen">
       {images.map((imageUrl, index) => (
-        <AnimatePresence key={index}>
+        <AnimatePresence key={index} mode="wait">
           <motion.div
-            layoutId="main-image"
-            key={index}
+            layoutId="hero-image"
             className="absolute top-1/2 left-1/2 w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
             style={{
-              opacity: index === currentIndex ? 1 : 0,
               zIndex: index === currentIndex ? 1 : 0,
             }}
-            initial={{ opacity: 1, x: "-50%", y: "-100%" }}
+            initial={{ opacity: 0, x: "-50%", y: "-100%" }}
             animate={{
               opacity: index === currentIndex ? 1 : 0,
               x: "-50%",
               y: "-50%",
             }}
-            exit={{ opacity: 0, x: "-50%", y: "-50%" }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
+            exit={{ x: "-50%", y: "-50%" }}
+            transition={{ duration: 1.25, ease: "easeOut" }}
           >
             {index === currentIndex && (
               <Image

@@ -1,58 +1,62 @@
 "use client";
-import React from "react";
-import { BackgroundImage } from "../../public/images";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { AnimatedBanner } from "./components/_atoms/typography/AnimatedBanner";
-import { AnimatedSideBanner } from "./components/_atoms/typography/AnimatedSideBanner";
-import { SplashScreenImage1 } from "../../public/images";
+
+import React, { useEffect, useState } from "react";
+import { motion, useCycle } from "framer-motion";
 import CustomImage from "./components/_atoms/image/CustomImage";
+import { SplashScreenImage1 } from "../../public/images";
+import HeroSection from "./components/_organisms/HeroSection";
+import NavMenu from "./components/_organisms/NavMenu";
+import Header from "./components/_organisms/Header";
+import SplashScreen from "./components/_organisms/SplashScreen";
 
 function HomePage() {
+  const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
+  const [isMenuOpened, setIsMenuOpened] = useCycle(false, true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const splashScreenPlayed =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("splashScreenPlayed")
+        : null;
+
+    setIsSplashScreenPlayed(Boolean(splashScreenPlayed));
+
+    if (isLoading) {
+      window.localStorage.setItem("splashScreenPlayed", true);
+    }
+  }, [isLoading]);
+
   return (
-    <div className="h-screen w-full">
-      <div className="w-full flex flex-col justify-between">
-        <div className="flex flex-col">
-          <AnimatedBanner title={"Ordinary by Nature,"} />
-          <AnimatedBanner title={"Unique by Choice"} />
-        </div>
-
-        <div className="flex max-md:flex-col justify-between gap-5 max-md:items-center">
-          <AnimatedSideBanner
-            title={"Reimagine your individuality with our products."}
+    <>
+      {isSplashScreenPlayed ? (
+        <div className="flex flex-col gap-20 px-16 pt-10 max-sm:px-5">
+          <NavMenu
+            isMenuOpened={isMenuOpened}
+            toggleNavMenu={setIsMenuOpened}
           />
-
-          <motion.div
-            layoutId="main-image"
-            className="w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
-            initial={{ opacity: 1 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-          >
-            <Image
-              src={BackgroundImage}
-              alt="Background"
-              width={"100%"}
-              height={"100%"}
-              objectFit="cover"
-              priority
-            />
-          </motion.div>
-          <AnimatedSideBanner
-            title={"Reimagine your individuality with our products."}
-          />
+          <Header toggleNavMenu={setIsMenuOpened} />
+          <div className="h-screen w-full">
+            <HeroSection />
+            <div className="relative flex w-full min-h-screen my-20">
+              <motion.div
+                className="absolute w-1/2 h-full"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                <CustomImage
+                  src={SplashScreenImage1}
+                  width="100%"
+                ></CustomImage>
+              </motion.div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="relative flex w-full min-h-screen my-20">
-        <motion.div
-          className="absolute w-1/2 h-full"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <CustomImage src={SplashScreenImage1} width="100%"></CustomImage>
-        </motion.div>
-      </div>
-    </div>
+      ) : (
+        <SplashScreen setIsLoading={setIsLoading} />
+      )}
+    </>
   );
 }
 

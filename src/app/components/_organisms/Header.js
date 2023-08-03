@@ -1,19 +1,12 @@
 import React from "react";
 import IconButton from "../_atoms/button/IconButton";
-import TextButton from "../_atoms/button/TextButton";
-import {
-  MoonIcon,
-  HeartIcon,
-  UserIcon,
-  CartIcon,
-  HamburgerIcon,
-} from "../../../../public/icons";
+import { HamburgerIcon } from "../../../../public/icons";
 import SlideIn from "../../animation/SlideIn";
 import BrandLogo from "../_atoms/typography/BrandLogo";
 import NavigationIconsBar from "../_molecules/NavigationIconsBar";
 import NavigationLinks from "../_molecules/NavigationLinks";
 
-function NavBar({ toggleNavMenu }) {
+function Header({ toggleNavMenu }) {
   return (
     <SlideIn direction="down">
       <div className="flex max-w-screen h-10 items-center justify-between">
@@ -37,4 +30,4 @@ function NavBar({ toggleNavMenu }) {
   );
 }
 
-export default NavBar;
+export default Header;
