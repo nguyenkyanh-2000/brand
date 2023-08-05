@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useCycle } from "framer-motion";
-import CustomImage from "./components/_atoms/image/CustomImage";
-import { SplashScreenImage1 } from "../../public/images";
+import { useCycle } from "framer-motion";
 import HeroSection from "./components/_organisms/HeroSection";
 import NavMenu from "./components/_organisms/NavMenu";
 import Header from "./components/_organisms/Header";
 import SplashScreen from "./components/_organisms/SplashScreen";
+import BodySection from "./components/_organisms/BodySection";
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
@@ -36,22 +35,8 @@ function HomePage() {
             toggleNavMenu={setIsMenuOpened}
           />
           <Header toggleNavMenu={setIsMenuOpened} />
-          <div className="h-screen w-full">
-            <HeroSection />
-            <div className="relative flex w-full min-h-screen my-20">
-              <motion.div
-                className="absolute w-1/2 h-full"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-              >
-                <CustomImage
-                  src={SplashScreenImage1}
-                  width="100%"
-                ></CustomImage>
-              </motion.div>
-            </div>
-          </div>
+          <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
+          <BodySection />
         </div>
       ) : (
         <SplashScreen setIsLoading={setIsLoading} />

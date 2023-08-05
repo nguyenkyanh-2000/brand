@@ -53,7 +53,7 @@ const SplashScreen = ({ setIsLoading }) => {
             style={{
               zIndex: index === currentIndex ? 1 : 0,
             }}
-            initial={{ opacity: 0, x: "-50%", y: "-100%" }}
+            initial={{ opacity: 0, x: "-50%", y: "-50%" }}
             animate={{
               opacity: index === currentIndex ? 1 : 0,
               x: "-50%",
@@ -68,7 +68,7 @@ const SplashScreen = ({ setIsLoading }) => {
                 alt={`Image ${index + 1}`}
                 fill
                 priority={true}
-                sizes=""
+                sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
               />
             )}
           </motion.div>

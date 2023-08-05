@@ -18,6 +18,7 @@ const HeroSection = () => {
           title={"Reimagine your individuality with our products."}
         />
         <motion.div
+          // layoutId to link with image from the Splash Screen
           layoutId="hero-image"
           className="w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
           transition={{ duration: 1.25, ease: "easeInOut" }}
@@ -27,7 +28,7 @@ const HeroSection = () => {
             alt="Background"
             width={"100%"}
             height={"100%"}
-            objectFit="cover"
+            sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
             priority
           />
         </motion.div>
