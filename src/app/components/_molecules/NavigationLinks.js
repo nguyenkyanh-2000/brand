@@ -1,22 +1,13 @@
-import AnimatedUnderline from "@/app/animation/AnimatedUnderline";
 import React from "react";
-import TextButton from "../_atoms/button/TextButton";
+import AnimatedUnderlineLink from "../_atoms/link/AnimatedUnderlineLink";
 
 function NavigationLinks() {
   return (
     <div className="flex items-center gap-20">
-      <AnimatedUnderline>
-        <TextButton label={"home"} textSize="2xl" />
-      </AnimatedUnderline>
-      <AnimatedUnderline>
-        <TextButton label={"products"} textSize="2xl" />
-      </AnimatedUnderline>
-      <AnimatedUnderline>
-        <TextButton label={"about"} textSize="2xl" />
-      </AnimatedUnderline>
-      <AnimatedUnderline>
-        <TextButton label={"contact"} textSize="2xl" />
-      </AnimatedUnderline>
+      <AnimatedUnderlineLink name={"home"} textSize="2xl" to="/" />
+      <AnimatedUnderlineLink name={"products"} textSize="2xl" to="/products" />
+      <AnimatedUnderlineLink name={"about"} textSize="2xl" to="/about" />
+      <AnimatedUnderlineLink name={"contact"} textSize="2xl" to="/contact" />
     </div>
   );
 }

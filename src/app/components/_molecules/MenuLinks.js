@@ -1,5 +1,5 @@
 import React from "react";
-import AnimatedUnderlineLink from "./AnimatedUnderlineLink";
+import AnimatedUnderlineLink from "../_atoms/link/AnimatedUnderlineLink";
 
 const links = [
   { name: "home", to: "#", id: 1 },

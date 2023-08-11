@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { AnimatePresence, motion, useCycle } from "framer-motion";
 import Image from "next/image";
+import { motion, useCycle } from "framer-motion";
 import { SplashScreenImage1 } from "../../../../public/images";
 import { SplashScreenImage2 } from "../../../../public/images";
 import { SplashScreenImage3 } from "../../../../public/images";
@@ -32,10 +32,10 @@ const SplashScreen = ({ setIsLoading }) => {
       }
     }, 1250);
 
-    // Total time to exit the loading screen
+    // Total time to wait for the final image before exit the loading screen
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 3000);
 
     return () => {
       clearInterval(interval);
@@ -46,33 +46,27 @@ const SplashScreen = ({ setIsLoading }) => {
   return (
     <div className="relative h-screen w-screen">
       {images.map((imageUrl, index) => (
-        <AnimatePresence key={index} mode="wait">
-          <motion.div
-            layoutId="hero-image"
-            className="absolute top-1/2 left-1/2 w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
-            style={{
-              zIndex: index === currentIndex ? 1 : 0,
-            }}
-            initial={{ opacity: 0, x: "-50%", y: "-50%" }}
-            animate={{
-              opacity: index === currentIndex ? 1 : 0,
-              x: "-50%",
-              y: "-50%",
-            }}
-            exit={{ x: "-50%", y: "-50%" }}
-            transition={{ duration: 1.25, ease: "easeOut" }}
-          >
-            {index === currentIndex && (
-              <Image
-                src={imageUrl}
-                alt={`Image ${index + 1}`}
-                fill
-                priority={true}
-                sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={index}
+          layoutId="hero-image"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[300px] lg:w-[400px] lg:h-[600px]"
+          style={{
+            zIndex: index === currentIndex ? 1 : 0,
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: index === currentIndex ? 1 : 0 }}
+          transition={{ duration: 1.25, ease: "easeOut" }}
+        >
+          {index === currentIndex && (
+            <Image
+              src={imageUrl}
+              alt={`Image ${index + 1}`}
+              fill
+              priority={true}
+              sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
+            />
+          )}
+        </motion.div>
       ))}
     </div>
   );

@@ -7,6 +7,7 @@ import NavMenu from "./components/_organisms/NavMenu";
 import Header from "./components/_organisms/Header";
 import SplashScreen from "./components/_organisms/SplashScreen";
 import BodySection from "./components/_organisms/BodySection";
+import SlideIn from "./animation/SlideIn";
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
@@ -29,12 +30,14 @@ function HomePage() {
   return (
     <>
       {isSplashScreenPlayed ? (
-        <div className="flex flex-col gap-20 px-16 pt-10 max-sm:px-5">
+        <div className="flex flex-col w-screen  gap-20 px-16 pt-10 max-sm:px-5">
           <NavMenu
             isMenuOpened={isMenuOpened}
             toggleNavMenu={setIsMenuOpened}
           />
-          <Header toggleNavMenu={setIsMenuOpened} />
+          <SlideIn direction="down">
+            <Header toggleNavMenu={setIsMenuOpened} />
+          </SlideIn>
           <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
           <BodySection />
         </div>
