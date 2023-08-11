@@ -30,13 +30,9 @@ function HomePage() {
   return (
     <>
       {isSplashScreenPlayed ? (
-        <div className="flex flex-col w-screen  gap-20 px-16 pt-10 max-sm:px-5">
-          <NavMenu
-            isMenuOpened={isMenuOpened}
-            toggleNavMenu={setIsMenuOpened}
-          />
+        <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
           <SlideIn direction="down">
-            <Header toggleNavMenu={setIsMenuOpened} />
+            <Header />
           </SlideIn>
           <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
           <BodySection />

@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import IconButton from "../_atoms/button/IconButton";
-import { ExitIcon } from "../../../../public/icons";
+import { ExitIcon, HamburgerIcon } from "../../../../public/icons";
 import WholeScreenSlideIn from "@/app/animation/WholeScreenSlideIn";
 import NavigationIconsBar from "../_molecules/NavigationIconsBar";
 import MenuLinks from "../_molecules/MenuLinks";
 
-function NavMenu({ toggleNavMenu, isMenuOpened }) {
+function NavMenu() {
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+
   return (
-    <AnimatePresence>
-      {isMenuOpened && (
-        <WholeScreenSlideIn isOpen={isMenuOpened}>
-          <div className="flex w-full justify-end pt-2">
-            <IconButton
-              width={24}
-              height={24}
-              Icon={ExitIcon}
-              onClick={() => toggleNavMenu()}
-            />
-          </div>
-          <MenuLinks />
-          <NavigationIconsBar />
-        </WholeScreenSlideIn>
+    <>
+      {!isMenuOpened ? (
+        <div className="flex items-center xl:hidden">
+          <IconButton
+            width={24}
+            height={24}
+            Icon={HamburgerIcon}
+            onClick={() => setIsMenuOpened(true)}
+          />
+        </div>
+      ) : (
+        <AnimatePresence>
+          <WholeScreenSlideIn isOpen={isMenuOpened}>
+            <div className="flex w-full justify-end pt-2">
+              <IconButton
+                width={24}
+                height={24}
+                Icon={ExitIcon}
+                onClick={() => setIsMenuOpened(false)}
+              />
+            </div>
+            <MenuLinks />
+            <NavigationIconsBar />
+          </WholeScreenSlideIn>
+        </AnimatePresence>
       )}
-    </AnimatePresence>
+    </>
   );
 }
 
