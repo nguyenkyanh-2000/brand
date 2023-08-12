@@ -2,6 +2,7 @@ import React from "react";
 import BrandLogo from "../_atoms/typography/BrandLogo";
 import NavigationIconsBar from "../_molecules/NavigationIconsBar";
 import NavigationLinks from "../_molecules/NavigationLinks";
+import SearchDialog from "../_molecules/SearchDialog";
 import NavMenu from "./NavMenu";
 
 function Header() {
@@ -11,10 +12,14 @@ function Header() {
       <div className="max-xl:hidden">
         <NavigationLinks />
       </div>
-      <div className="max-xl:hidden">
+      <div className="flex max-xl:hidden gap-8">
+        <SearchDialog />
         <NavigationIconsBar />
       </div>
-      <NavMenu />
+      <div className="hidden max-xl:flex gap-8">
+        <SearchDialog />
+        <NavMenu />
+      </div>
     </div>
   );
 }

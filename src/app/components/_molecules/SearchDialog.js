@@ -1,42 +1,65 @@
-import React from "react";
+"use client";
+import { SearchIcon } from "../../../../public/icons";
+import { useState, useEffect, useRef } from "react";
+import IconButton from "../_atoms/button/IconButton";
+import SlideIn from "@/app/animation/SlideIn";
 
-const SearchDialog = ({ isOpen, onClose }) => {
+function SearchDialog() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const inputRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (inputRef.current && !inputRef.current.contains(event.target)) {
+      setIsDialogOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDialogOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDialogOpen]);
+
   return (
-    <div
-      className={`fixed inset-0 flex items-center justify-center ${
-        isOpen ? "visible" : "hidden"
-      }`}
-    >
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="relative bg-white p-6 rounded-lg shadow-lg">
-        <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          onClick={onClose}
-        >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-        <h2 className="text-lg font-semibold mb-4">Search</h2>
-        <input
-          type="text"
-          className="w-full border border-gray-300 rounded px-3 py-2"
-          placeholder="Search for trails..."
-        />
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Search
-        </button>
-      </div>
+    <div className="flex justify-center">
+      <IconButton
+        width={24}
+        height={24}
+        Icon={SearchIcon}
+        onClick={() => setIsDialogOpen(true)}
+      />
+      {isDialogOpen && (
+        <div className="fixed inset-0 z-50 flex justify-center w-screen bg-black bg-opacity-40">
+          <SlideIn direction="down" duration={0.5}>
+            <div
+              className="absolute left-1/2 -translate-x-1/2 w-4/5 lg:w-1/2 mt-10"
+              ref={inputRef}
+            >
+              <SearchIcon
+                width={16}
+                height={16}
+                className="absolute top-[13px] left-3"
+              />
+              <input
+                type="text"
+                placeholder="Search products"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="p-2 pl-8 border w-full rounded-full"
+              />
+            </div>
+          </SlideIn>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default SearchDialog;

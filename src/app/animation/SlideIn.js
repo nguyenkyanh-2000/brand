@@ -45,7 +45,7 @@ const SlideIn = ({ children, direction = "up", duration = 1 }) => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden w-full">
       <motion.div
         variants={animationVariants}
         initial="initial"

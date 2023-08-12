@@ -6,7 +6,7 @@ import {
   UserIcon,
   CartIcon,
 } from "../../../../public/icons";
-import AnimatedUnderline from "@/app/animation/AnimatedUnderline";
+import SearchDialog from "./SearchDialog";
 
 function NavigationIcons() {
   return (

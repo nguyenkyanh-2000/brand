@@ -1,8 +1,9 @@
-"use client";
-
 import Header from "../components/_organisms/Header";
-import NavMenu from "../components/_organisms/NavMenu";
-import { useCycle } from "framer-motion";
+
+export const metadata = {
+  title: "Products",
+  description: "",
+};
 
 function ProductLayout({ children }) {
   return (
