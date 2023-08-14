@@ -3,13 +3,6 @@ import React from "react";
 import { SearchIcon } from "../../../../public/icons";
 
 function SearchBar({ searchTerm, setSearchTerm }) {
-  useEffect(() => {
-    const filtered = predefinedResults.filter((result) =>
-      result.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredResults(filtered);
-  }, [searchTerm]);
-
   return (
     <div className="relative">
       <SearchIcon

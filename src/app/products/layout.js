@@ -1,4 +1,4 @@
-import Header from "../components/_organisms/Header";
+import Header from "../components/organisms/Header";
 
 export const metadata = {
   title: "Products",

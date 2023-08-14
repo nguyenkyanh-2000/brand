@@ -1,5 +1,5 @@
 import React from "react";
-import FadeIn from "../../../animation/FadeIn";
+import FadeIn from "../../animation/FadeIn";
 
 export const AnimatedSideBanner = ({ title }) => (
   <FadeIn>

@@ -6,7 +6,7 @@ import {
   UserIcon,
   CartIcon,
 } from "../../../../public/icons";
-import SearchDialog from "../_organisms/SearchDialog";
+import SearchDialog from "../organisms/SearchDialog";
 
 function NavigationIcons() {
   return (

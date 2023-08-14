@@ -1,4 +1,4 @@
-import SlideIn from "../../../animation/SlideIn";
+import SlideIn from "../../animation/SlideIn";
 
 export const AnimatedBanner = ({ title }) => (
   <SlideIn direction="up">

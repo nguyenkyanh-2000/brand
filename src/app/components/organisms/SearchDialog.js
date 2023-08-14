@@ -2,8 +2,10 @@
 
 import { SearchIcon } from "../../../../public/icons";
 import { useState, useEffect, useRef } from "react";
-import IconButton from "../_atoms/button/IconButton";
-import SlideIn from "@/app/animation/SlideIn";
+import IconButton from "../atoms/button/IconButton";
+import SlideIn from "@/app/components/animation/SlideIn";
+import SearchResults from "../molecules/SearchResults";
+import SearchBar from "../molecules/SearchBar";
 
 const predefinedResults = [
   { id: 1, name: "Product 1" },
@@ -75,34 +77,16 @@ function SearchDialog() {
               className="absolute left-1/2 -translate-x-1/2 w-4/5 lg:w-1/2 mt-10"
               ref={inputRef}
             >
-              <div className="relative">
-                <SearchIcon
-                  width={16}
-                  height={16}
-                  className="absolute top-[13px] left-3 text-gray-500"
-                />
-                <input
-                  type="text"
-                  placeholder="Search products"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="p-2 pl-8 border w-full rounded-full"
-                />
-              </div>
+              <SearchBar
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
               {searchTerm && (
-                <div className="mt-2 p-4 bg-white border rounded-2xl shadow-md max-h-96 overflow-y-auto">
-                  {filteredResults.length > 0 ? (
-                    filteredResults.map((result) => (
-                      <div key={result.id} className="py-1">
-                        {result.name}
-                      </div>
-                    ))
-                  ) : (
-                    <div className="flex justify-center">
-                      {`No results for "${searchTerm}"`}
-                    </div>
-                  )}
-                </div>
+                <SearchResults
+                  searchTerm={searchTerm}
+                  filteredResults={filteredResults}
+                  setFilteredResults={setFilteredResults}
+                />
               )}
             </div>
           </SlideIn>

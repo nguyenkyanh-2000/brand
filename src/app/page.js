@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useCycle } from "framer-motion";
-import HeroSection from "./components/_organisms/HeroSection";
-import NavMenu from "./components/_organisms/NavMenu";
-import Header from "./components/_organisms/Header";
-import SplashScreen from "./components/_organisms/SplashScreen";
-import BodySection from "./components/_organisms/BodySection";
-import SlideIn from "./animation/SlideIn";
+import HeroSection from "./components/organisms/HeroSection";
+import Header from "./components/organisms/Header";
+import SplashScreen from "./components/organisms/SplashScreen";
+import BodySection from "./components/organisms/BodySection";
+import SlideIn from "./components/animation/SlideIn";
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
-  const [isMenuOpened, setIsMenuOpened] = useCycle(false, true);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

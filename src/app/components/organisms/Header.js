@@ -1,7 +1,7 @@
 import React from "react";
 import BrandLogo from "../_atoms/typography/BrandLogo";
-import NavigationIconsBar from "../_molecules/NavigationIconsBar";
-import NavigationLinks from "../_molecules/NavigationLinks";
+import NavigationIconsBar from "../molecules/NavigationIconsBar";
+import NavigationLinks from "../molecules/NavigationLinks";
 import SearchDialog from "./SearchDialog";
 import NavMenu from "./NavMenu";
 
