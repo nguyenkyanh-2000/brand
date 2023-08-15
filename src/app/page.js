@@ -6,6 +6,7 @@ import Header from "./_components/organisms/Header";
 import SplashScreen from "./_components/organisms/SplashScreen";
 import BodySection from "./_components/organisms/BodySection";
 import SlideIn from "./_components/animation/SlideIn";
+import Footer from "./_components/organisms/Footer";
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
@@ -27,12 +28,15 @@ function HomePage() {
   return (
     <>
       {isSplashScreenPlayed ? (
-        <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
-          <SlideIn direction="down">
-            <Header />
-          </SlideIn>
-          <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
-          <BodySection />
+        <div className="flex flex-col gap-20">
+          <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
+            <SlideIn direction="down">
+              <Header />
+            </SlideIn>
+            <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
+            <BodySection />
+          </div>
+          <Footer />
         </div>
       ) : (
         <SplashScreen setIsLoading={setIsLoading} />
