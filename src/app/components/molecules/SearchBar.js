@@ -11,11 +11,12 @@ function SearchBar({ searchTerm, setSearchTerm }) {
         className="absolute top-[13px] left-3 text-gray-500"
       />
       <input
+        autoFocus
         type="text"
         placeholder="Search products"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="p-2 pl-8 border w-full rounded-full"
+        className="p-2 pl-8 w-full rounded-full focus:outline-0"
       />
     </div>
   );

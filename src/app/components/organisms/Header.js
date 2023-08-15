@@ -1,5 +1,5 @@
 import React from "react";
-import BrandLogo from "../_atoms/typography/BrandLogo";
+import BrandLogo from "../atoms/typography/BrandLogo";
 import NavigationIconsBar from "../molecules/NavigationIconsBar";
 import NavigationLinks from "../molecules/NavigationLinks";
 import SearchDialog from "./SearchDialog";

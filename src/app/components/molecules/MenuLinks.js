@@ -1,11 +1,11 @@
 import React from "react";
-import AnimatedUnderlineLink from "../_atoms/link/AnimatedUnderlineLink";
+import AnimatedUnderlineLink from "../atoms/link/AnimatedUnderlineLink";
 
 const links = [
-  { name: "home", to: "#", id: 1 },
-  { name: "products", to: "#", id: 2 },
-  { name: "about", to: "#", id: 3 },
-  { name: "contact", to: "#", id: 4 },
+  { name: "Home", to: "#", id: 1 },
+  { name: "Products", to: "#", id: 2 },
+  { name: "About", to: "#", id: 3 },
+  { name: "Contact", to: "#", id: 4 },
 ];
 
 const MenuLinks = () => (

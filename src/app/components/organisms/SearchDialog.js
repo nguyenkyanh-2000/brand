@@ -6,40 +6,25 @@ import IconButton from "../atoms/button/IconButton";
 import SlideIn from "@/app/components/animation/SlideIn";
 import SearchResults from "../molecules/SearchResults";
 import SearchBar from "../molecules/SearchBar";
-
-const predefinedResults = [
-  { id: 1, name: "Product 1" },
-  { id: 2, name: "Product 2" },
-  { id: 3, name: "Product 3" },
-  { id: 4, name: "Iphone 3" },
-  { id: 5, name: "Bathtub 3" },
-  { id: 6, name: "Product 1" },
-  { id: 7, name: "Product 2" },
-  { id: 8, name: "Product 3" },
-  { id: 9, name: "Iphone 3" },
-  { id: 10, name: "Bathtub 3" },
-  { id: 11, name: "Product 1" },
-  { id: 12, name: "Product 2" },
-  { id: 13, name: "Product 3" },
-  { id: 14, name: "Iphone 3" },
-  { id: 15, name: "Bathtub 3" },
-  { id: 16, name: "Product 1" },
-  { id: 17, name: "Product 2" },
-  { id: 18, name: "Product 3" },
-  { id: 19, name: "Iphone 3" },
-  { id: 20, name: "Bathtub 3" },
-  // Add more predefined results as needed
-];
+import { useProductStore } from "@/app/store/productStore";
 
 function SearchDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const inputRef = useRef(null);
+  const { products, fetchProducts } = useProductStore((state) => {
+    return { products: state.products, fetchProducts: state.fetchProducts };
+  });
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleClickOutside = (event) => {
     if (inputRef.current && !inputRef.current.contains(event.target)) {
       setIsDialogOpen(false);
+      setSearchTerm("");
     }
   };
 
@@ -49,18 +34,17 @@ function SearchDialog() {
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDialogOpen]);
 
   useEffect(() => {
-    const filtered = predefinedResults.filter((result) =>
-      result.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = products.filter((result) =>
+      result.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredResults(filtered);
-  }, [searchTerm]);
+  }, [searchTerm, products]);
 
   return (
     <div className="flex justify-center">

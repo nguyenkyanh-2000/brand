@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import IconButton from "../_atoms/button/IconButton";
+import IconButton from "../atoms/button/IconButton";
 import { ExitIcon, HamburgerIcon } from "../../../../public/icons";
 import WholeScreenSlideIn from "@/app/components/animation/WholeScreenSlideIn";
 import NavigationIconsBar from "../molecules/NavigationIconsBar";

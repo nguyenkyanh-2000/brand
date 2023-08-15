@@ -1,6 +1,6 @@
 import React from "react";
-import { AnimatedBanner } from "../_atoms/typography/AnimatedBanner";
-import { AnimatedSideBanner } from "../_atoms/typography/AnimatedSideBanner";
+import { AnimatedBanner } from "../atoms/typography/AnimatedBanner";
+import { AnimatedSideBanner } from "../atoms/typography/AnimatedSideBanner";
 import { motion } from "framer-motion";
 import { BackgroundImage } from "../../../../public/images";
 import Image from "next/image";

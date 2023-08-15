@@ -1,4 +1,3 @@
-// molecules/SearchResults.js
 import React from "react";
 
 function SearchResults({ filteredResults, searchTerm }) {
@@ -6,8 +5,12 @@ function SearchResults({ filteredResults, searchTerm }) {
     <div className="mt-2 p-4 bg-white border rounded-2xl shadow-md max-h-96 overflow-y-auto">
       {filteredResults.length > 0 ? (
         filteredResults.map((result) => (
-          <div key={result.id} className="py-1">
-            {result.name}
+          <div key={result.id} className="py-1 hover:bg-slate-100">
+            <div className="text-sm text-gray-600">
+              {result.category.charAt(0).toUpperCase() +
+                result.category.slice(1)}
+            </div>
+            <div className="text-lg">{result.title}</div>
           </div>
         ))
       ) : (

@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from "../_atoms/button/IconButton";
+import IconButton from "../atoms/button/IconButton";
 import {
   MoonIcon,
   HeartIcon,
