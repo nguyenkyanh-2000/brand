@@ -3,10 +3,10 @@
 import { SearchIcon } from "../../../../public/icons";
 import { useState, useEffect, useRef } from "react";
 import IconButton from "../atoms/button/IconButton";
-import SlideIn from "@/app/components/animation/SlideIn";
+import SlideIn from "@/app/_components/animation/SlideIn";
 import SearchResults from "../molecules/SearchResults";
 import SearchBar from "../molecules/SearchBar";
-import { useProductStore } from "@/app/store/productStore";
+import { useProductStore } from "@/app/_store/productStore";
 
 function SearchDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

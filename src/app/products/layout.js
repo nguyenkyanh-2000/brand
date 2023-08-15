@@ -1,4 +1,6 @@
-import Header from "../components/organisms/Header";
+import Breadcrumb from "../_components/atoms/link/Breadcrumb";
+import BreadcrumbItem from "../_components/atoms/link/BreadcrumbItem";
+import Header from "../_components/organisms/Header";
 
 export const metadata = {
   title: "Products",

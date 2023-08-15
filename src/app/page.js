@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import HeroSection from "./components/organisms/HeroSection";
-import Header from "./components/organisms/Header";
-import SplashScreen from "./components/organisms/SplashScreen";
-import BodySection from "./components/organisms/BodySection";
-import SlideIn from "./components/animation/SlideIn";
+import HeroSection from "./_components/organisms/HeroSection";
+import Header from "./_components/organisms/Header";
+import SplashScreen from "./_components/organisms/SplashScreen";
+import BodySection from "./_components/organisms/BodySection";
+import SlideIn from "./_components/animation/SlideIn";
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
