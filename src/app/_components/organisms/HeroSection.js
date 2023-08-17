@@ -18,7 +18,6 @@ const HeroSection = () => {
           title={"Reimagine your individuality with our products."}
         />
         <motion.div
-          // layoutId to link with image from the Splash Screen
           layoutId="hero-image"
           transition={{ duration: 1.25, ease: "easeInOut" }}
         >

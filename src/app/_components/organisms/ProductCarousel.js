@@ -75,7 +75,7 @@ function ProductCarousel() {
       {products.map((product) => (
         <ProductCard key={product.id} product={product}></ProductCard>
       ))}
-      <div className="relative bg-neutral-900 w-full h-96 rounded-lg overflow-hidden">
+      <div className="relative bg-neutral-900 w-full h-96">
         <div className="absolute inset-0 flex flex-col justify-center items-start px-4">
           <div className="h-2/3 font-secondary text-2xl font-bold text-neutral-50">
             Need more ideas for your lifestyle?

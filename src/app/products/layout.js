@@ -8,7 +8,7 @@ export const metadata = {
 
 function ProductLayout({ children }) {
   return (
-    <div className="flex flex-col gap-20">
+    <div className="w-screen flex flex-col gap-20">
       <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
         <Header />
         {children}
