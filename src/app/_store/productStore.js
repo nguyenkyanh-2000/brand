@@ -5,10 +5,14 @@ export const useProductStore = create((set) => ({
   products: [],
   fetchProducts: async () => {
     try {
-      const url = new URL("/products", process.env.NEXT_PUBLIC_DATA_SOURCE_URL);
+      const url = new URL(
+        "/api/products",
+        process.env.NEXT_PUBLIC_DATA_SOURCE_URL
+      );
       const res = await fetch(url);
-      const fetchedProducts = await res.json();
-      set({ products: fetchedProducts });
+      const data = await res.json();
+      console.log(data);
+      set({ products: data.products });
     } catch (error) {
       console.log(error);
     }

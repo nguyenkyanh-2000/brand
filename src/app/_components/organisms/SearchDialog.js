@@ -41,7 +41,7 @@ function SearchDialog() {
 
   useEffect(() => {
     const filtered = products.filter((result) =>
-      result.title.toLowerCase().includes(searchTerm.toLowerCase())
+      result.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredResults(filtered);
   }, [searchTerm, products]);

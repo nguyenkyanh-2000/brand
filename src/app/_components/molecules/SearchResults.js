@@ -10,7 +10,7 @@ function SearchResults({ filteredResults, searchTerm }) {
               {result.category.charAt(0).toUpperCase() +
                 result.category.slice(1)}
             </div>
-            <div className="text-lg">{result.title}</div>
+            <div className="text-lg">{result.name}</div>
           </div>
         ))
       ) : (
