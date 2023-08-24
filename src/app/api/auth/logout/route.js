@@ -1,26 +1,20 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/app/_utils/supabase";
-const { AuthError } = require("@supabase/supabase-js");
+import { ApiError } from "next/dist/server/api-utils";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export async function POST(request) {
+export const dynamic = "force-dynamic";
+
+export async function POST() {
   try {
-    const requestData = await request.json();
-    const { email, password } = requestData;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw new AuthError(error.message, error.status);
+    const supabase = createRouteHandlerClient({ cookies });
+    const { error } = await supabase.auth.signOut();
+    if (error) throw new ApiError(error.status, error.message);
+    return NextResponse.json({ message: "Logout successfully" });
   } catch (error) {
     return NextResponse.json(
-      {
-        message: error.message,
-      },
-      {
-        status: error.status,
-      }
+      { message: error.message },
+      { status: error.statusCode }
     );
   }
 }

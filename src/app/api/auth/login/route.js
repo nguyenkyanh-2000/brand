@@ -1,12 +1,13 @@
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
-const { AuthError } = require("@supabase/supabase-js");
+import { cookies } from "next/headers";
+import { ApiError } from "next/dist/server/api-utils";
 
 export async function POST(request) {
   try {
     const requestData = await request.json();
     const { email, password } = requestData;
-    const supabase = createClientComponentClient();
+    const supabase = createRouteHandlerClient({ cookies });
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -14,14 +15,12 @@ export async function POST(request) {
         emailRedirectTo: `${process.env.NEXT_PUBLIC_LOCATION_ORIGIN}/api/auth/callback`,
       },
     });
-
-    console.log(data);
-    if (error) throw new AuthError(error.message, error.status);
-    return NextResponse.json(data.user);
+    if (error) throw new ApiError(error.status, error.message);
+    return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
       { message: error.message },
-      { status: error.status }
+      { status: error.statusCode }
     );
   }
 }

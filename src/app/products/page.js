@@ -17,7 +17,7 @@ function ProductPage() {
       </div>
       <FeatureSection
         imageURL={SplashScreenImage1}
-        title="Our innovative Bdsadasdasdrand product"
+        title="Our innovative Brand product"
         content={
           "Discover a new realm of possibilities as you interact with our product's cutting-edge features. From its sleek and ergonomic design to its intuitive user interface, every detail has been meticulously crafted to enhance your daily routines."
         }

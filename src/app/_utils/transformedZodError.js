@@ -1,8 +1,8 @@
-import { AuthError } from "@supabase/supabase-js";
+import { ApiError } from "next/dist/server/api-utils";
 
 function transformedZodErrors(zodError) {
   const errorMessage = zodError.issues.map((issue) => issue.message).join(" ");
-  const combinedError = new AuthError(errorMessage, 400);
+  const combinedError = new ApiError(400, errorMessage);
   return combinedError;
 }
 
