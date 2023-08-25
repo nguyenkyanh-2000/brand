@@ -8,14 +8,42 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import loginSchema from "../_schema/loginSchema";
 import Link from "next/link";
 import CheckBox from "../_components/atoms/input/CheckBox";
+import LongHorizontalButton from "../_components/atoms/button/LongHorizontalButton";
+import LongIconButton from "../_components/atoms/button/LongIconButton";
+import { FacebookIcon, GoogleIcon } from "../../../public/icons";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 function LoginPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
-  const onSubmit = (data) => console.log(data);
+
+  const loginUser = async (data) => {
+    try {
+      const url = `${process.env.NEXT_PUBLIC_LOCATION_ORIGIN}/api/auth/login`;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      const res = await fetch(url, options);
+      const result = await res.json();
+      if (res.status !== 200) throw new Error(result.message);
+      toast("Login successfully");
+      router.push("/");
+    } catch (error) {
+      toast(error.message);
+    }
+  };
+
+  const onSubmit = (data) =>
+    loginUser({ email: data.email, password: data.password });
   return (
     <div className="flex h-screen flex-col items-center justify-center px-6 py-12 lg:px-8">
       <div className="flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
@@ -53,18 +81,26 @@ function LoginPage() {
             </Link>
           </div>
 
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-neutral-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-neutral-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600"
-          >
-            Sign in
-          </button>
+          <div className="flex flex-col items-center gap-2">
+            <LongHorizontalButton type={"submit"}>
+              Sign in using email
+            </LongHorizontalButton>
+            <p className="text-xs text-neutral-500">Or sign in with</p>
+            <div className="flex w-full gap-5 space-between">
+              <LongIconButton Icon={GoogleIcon} iconSize="16px">
+                Google
+              </LongIconButton>
+              <LongIconButton Icon={FacebookIcon} iconSize="16px">
+                Facebook
+              </LongIconButton>
+            </div>
+          </div>
         </form>
 
         <p className="mt-10 text-center text-sm text-neutral-500">
           Not a member?{" "}
           <a
-            href="#"
+            href="/register"
             className="font-semibold text-sm text-neutral-600 hover:text-neutral-500"
           >
             Register here

@@ -5,3 +5,5 @@ export { default as UserIcon } from "./user.svg";
 export { default as HamburgerIcon } from "./hamburger.svg";
 export { default as ExitIcon } from "./exit.svg";
 export { default as SearchIcon } from "./search.svg";
+export { default as FacebookIcon } from "./facebook.svg";
+export { default as GoogleIcon } from "./google.svg";

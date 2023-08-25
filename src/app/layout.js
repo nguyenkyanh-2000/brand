@@ -1,5 +1,7 @@
+import dynamic from "next/dynamic";
 import React from "react";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Brand",
@@ -9,7 +11,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-50 overflow-x-hidden">{children}</body>
+      <body className="bg-neutral-50 overflow-x-hidden">
+        {children}
+        <Toaster
+          position="top-right"
+          toastOptions={{ className: "font-secondary" }}
+        />
+      </body>
     </html>
   );
 }
