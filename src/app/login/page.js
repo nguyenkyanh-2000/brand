@@ -1,20 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import InputForm from "../_components/atoms/input/InputForm";
 import BrandLogo from "../_components/atoms/typography/BrandLogo";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginSchema from "../_schema/loginSchema";
 import Link from "next/link";
-import CheckBox from "../_components/atoms/input/CheckBox";
+import PasswordCheckBox from "../_components/atoms/input/PasswordCheckBox";
 import LongHorizontalButton from "../_components/atoms/button/LongHorizontalButton";
 import LongIconButton from "../_components/atoms/button/LongIconButton";
 import { FacebookIcon, GoogleIcon } from "../../../public/icons";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useUserStore } from "../_store/userStore";
 
 function LoginPage() {
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -22,28 +24,16 @@ function LoginPage() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
 
-  const loginUser = async (data) => {
-    try {
-      const url = `${process.env.NEXT_PUBLIC_LOCATION_ORIGIN}/api/auth/login`;
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-      const res = await fetch(url, options);
-      const result = await res.json();
-      if (res.status !== 200) throw new Error(result.message);
-      toast("Login successfully");
-      router.push("/");
-    } catch (error) {
-      toast(error.message);
-    }
-  };
+  const { login, error } = useUserStore((state) => {
+    return { login: state.login, error: state.error };
+  });
 
-  const onSubmit = (data) =>
-    loginUser({ email: data.email, password: data.password });
+  const onSubmit = (data) => {
+    login({ email: data.email, password: data.password });
+    if (error) {
+      toast(error);
+    } else router.push("/");
+  };
   return (
     <div className="flex h-screen flex-col items-center justify-center px-6 py-12 lg:px-8">
       <div className="flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
@@ -62,16 +52,17 @@ function LoginPage() {
           <InputForm
             label={"Password"}
             name={"password"}
-            type="password"
+            type={passwordVisibility ? "text" : "password"}
             errors={errors.password}
             register={register}
           />
 
           <div className="flex justify-between">
-            <CheckBox
-              name={"remember_me"}
-              label={"Remember me"}
-              register={register}
+            <PasswordCheckBox
+              name={"show_password"}
+              label={"Show password"}
+              passwordVisibility={passwordVisibility}
+              setPasswordVisibility={setPasswordVisibility}
             />
             <Link
               href={"#"}

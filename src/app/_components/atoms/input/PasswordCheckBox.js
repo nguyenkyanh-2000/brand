@@ -2,13 +2,21 @@ import React from "react";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 
-const CheckBox = ({ name, label }) => (
+const PasswordCheckBox = ({
+  name,
+  label,
+  setPasswordVisibility,
+  passwordVisibility,
+  ...rest
+}) => (
   <div className="flex items-center">
     <Checkbox.Root
       className="flex h-4 w-4 items-center justify-center rounded-sm bg-white ring-1 ring-neutral-300"
       defaultChecked
       name={name}
       id="c1"
+      onCheckedChange={setPasswordVisibility}
+      checked={passwordVisibility}
     >
       <Checkbox.Indicator className="text-neutral-900">
         <CheckIcon />
@@ -23,4 +31,4 @@ const CheckBox = ({ name, label }) => (
   </div>
 );
 
-export default CheckBox;
+export default PasswordCheckBox;

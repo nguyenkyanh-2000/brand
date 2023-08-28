@@ -7,12 +7,11 @@ export const useProductStore = create((set) => ({
     try {
       const url = new URL(
         "/api/products",
-        process.env.NEXT_PUBLIC_DATA_SOURCE_URL
+        process.env.NEXT_PUBLIC_LOCATION_ORIGIN
       );
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
-      set({ products: data.products });
+      set({ products: data });
     } catch (error) {
       console.log(error);
     }
@@ -20,8 +19,8 @@ export const useProductStore = create((set) => ({
   fetchProductById: async (id) => {
     try {
       const url = new URL(
-        `/products/${id}`,
-        process.env.NEXT_PUBLIC_DATA_SOURCE_URL
+        `/api/products/${id}`,
+        process.env.NEXT_PUBLIC_LOCATION_ORIGIN
       );
       const res = await fetch(url);
       const fetchedProduct = await res.json();

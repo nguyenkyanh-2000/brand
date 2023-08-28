@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import InputForm from "../_components/atoms/input/InputForm";
 import BrandLogo from "../_components/atoms/typography/BrandLogo";
@@ -9,8 +9,10 @@ import LongHorizontalButton from "../_components/atoms/button/LongHorizontalButt
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import registrationSchema from "../_schema/registrationSchema";
+import PasswordCheckBox from "../_components/atoms/input/PasswordCheckBox";
 
 function RegisterPage() {
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -59,7 +61,7 @@ function RegisterPage() {
           <InputForm
             label={"Password"}
             name={"password"}
-            type="password"
+            type={passwordVisibility ? "text" : "password"}
             errors={errors.password}
             register={register}
           />
@@ -67,9 +69,17 @@ function RegisterPage() {
           <InputForm
             label={"Confirm Password"}
             name={"confirmPassword"}
-            type="password"
+            type={passwordVisibility ? "text" : "password"}
             errors={errors.confirmPassword}
             register={register}
+          />
+
+          <PasswordCheckBox
+            name={"show_password"}
+            label={"Show password"}
+            // Hacky
+            passwordVisibility={passwordVisibility}
+            setPasswordVisibility={setPasswordVisibility}
           />
 
           <LongHorizontalButton type={"submit"}>Sign up</LongHorizontalButton>

@@ -25,7 +25,7 @@ function NavMenu() {
       ) : (
         <AnimatePresence>
           <WholeScreenSlideIn isOpen={isMenuOpened}>
-            <div className="flex w-full justify-end pt-2">
+            <div className="flex max-w-screen justify-end pt-2">
               <IconButton
                 width={24}
                 height={24}
