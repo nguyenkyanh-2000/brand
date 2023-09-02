@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "../atoms/button/Button";
+import Button from "../atoms/button/ShortButton";
 
 const ProductCard = ({ product }) => (
   <div className="relative w-full h-96">

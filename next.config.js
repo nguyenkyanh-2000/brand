@@ -8,7 +8,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["picsum.photos", "fakestoreapi.com"],
+    domains: ["picsum.photos", "fakestoreapi.com", "placehold.co"],
   },
 };
 

@@ -1,3 +1,4 @@
+import { ProfileForm } from "../_components/molecules/ProfileForm";
 import Footer from "../_components/organisms/Footer";
 import Header from "../_components/organisms/Header";
 
@@ -6,10 +7,10 @@ export const metadata = {
   description: "",
 };
 
-function ProductLayout({ children }) {
+function MainLayout({ children }) {
   return (
     <div className="w-screen flex flex-col gap-20">
-      <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
+      <div className="flex flex-col min-h-screen w-screen gap-20 px-16 pt-10 max-sm:px-5">
         <Header />
         {children}
       </div>
@@ -18,4 +19,4 @@ function ProductLayout({ children }) {
   );
 }
 
-export default ProductLayout;
+export default MainLayout;

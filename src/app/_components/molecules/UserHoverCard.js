@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { UserIcon } from "../../../../public/icons";
 import { useUserStore } from "@/app/_store/userStore";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 function UserHoverCard() {
   const user = useUserStore((state) => state.user);
@@ -16,12 +19,12 @@ function UserHoverCard() {
       ) : (
         <HoverCard.Root openDelay={0} closeDelay={100}>
           <HoverCard.Trigger asChild>
-            <a
+            <Link
               className="inline-block cursor-pointer rounded-full"
               href="/profile"
             >
               <UserIcon width={24} height={24} />
-            </a>
+            </Link>
           </HoverCard.Trigger>
           <HoverCard.Portal>
             <HoverCard.Content
@@ -37,16 +40,16 @@ function UserHoverCard() {
                 </div>
                 <div className="font-medium truncate">{user.email}</div>
               </div>
-              <ul className="flex flex-col gap-2 py-2 text-sm text-gray-700">
+              <ul className="flex flex-col gap-1 py-2 text-sm text-gray-700">
                 <li>
-                  <a href="#" className="block px-4 ">
+                  <Link href="/profile" className="block px-4 ">
                     My profile
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="block px-4">
+                  <Link href="/orders" className="block px-4">
                     My orders
-                  </a>
+                  </Link>
                 </li>
               </ul>
 

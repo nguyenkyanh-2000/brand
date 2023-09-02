@@ -1,14 +1,10 @@
 import React from "react";
+import { Label } from "../typography/Label";
 
 function InputForm({ type, label, name, errors, register, ...rest }) {
   return (
     <div>
-      <label
-        htmlFor={name}
-        className="block text-sm font-medium font-secondary text-neutral-900"
-      >
-        {label}
-      </label>
+      <Label>{label}</Label>
       <div className="mt-2">
         <input
           id={name}

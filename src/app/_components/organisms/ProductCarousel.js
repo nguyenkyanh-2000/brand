@@ -2,7 +2,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCard from "../molecules/ProductCard";
-import Button from "../atoms/button/Button";
+import Button from "../atoms/button/ShortButton";
 
 const responsive = {
   superLargeDesktop: {

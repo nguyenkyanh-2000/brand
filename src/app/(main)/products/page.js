@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { SplashScreenImage1 } from "../../../public/images";
-import Button from "../_components/atoms/button/Button";
-import ProductBanner from "../_components/atoms/typography/ProductBanner";
-import FeatureSection from "../_components/organisms/FeatureSection";
-import ProductCarousel from "../_components/organisms/ProductCarousel";
+import { SplashScreenImage1 } from "../../../../public/images";
+import ShortButton from "../../_components/atoms/button/ShortButton";
+import ProductBanner from "../../_components/atoms/typography/ProductBanner";
+import FeatureSection from "../../_components/organisms/FeatureSection";
+import ProductCarousel from "../../_components/organisms/ProductCarousel";
 
 function ProductPage() {
   return (
