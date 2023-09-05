@@ -1,4 +1,3 @@
-import { ProfileForm } from "../_components/molecules/ProfileForm";
 import Footer from "../_components/organisms/Footer";
 import Header from "../_components/organisms/Header";
 

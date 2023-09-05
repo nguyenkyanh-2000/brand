@@ -6,16 +6,23 @@ import { UserIcon } from "../../../../public/icons";
 import { useUserStore } from "@/app/_store/userStore";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function UserHoverCard() {
+  const router = useRouter();
   const user = useUserStore((state) => state.user);
   const logout = useUserStore((state) => state.logout);
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  const error = useUserStore((state) => state.error);
   return (
     <>
-      {!user ? (
-        <a className="inline-block cursor-pointer rounded-full" href="/login">
+      {!isAuthenticated ? (
+        <Link
+          className="inline-block cursor-pointer rounded-full"
+          href="/login"
+        >
           <UserIcon width={24} height={24} />
-        </a>
+        </Link>
       ) : (
         <HoverCard.Root openDelay={0} closeDelay={100}>
           <HoverCard.Trigger asChild>
@@ -53,16 +60,18 @@ function UserHoverCard() {
                 </li>
               </ul>
 
-              <a
-                href="#"
+              <button
                 onClick={() => {
                   logout();
-                  toast("Sign out successfully!");
+                  if (!error) {
+                    toast("Sign out successfully!");
+                    router.push("/");
+                  } else toast(error.message);
                 }}
-                className="block px-4 py-2 text-sm"
+                className="w-full text-left px-4 py-2 text-sm"
               >
                 Sign out
-              </a>
+              </button>
             </HoverCard.Content>
           </HoverCard.Portal>
         </HoverCard.Root>

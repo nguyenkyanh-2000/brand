@@ -3,6 +3,7 @@ import { create } from "zustand";
 export const useProductStore = create((set) => ({
   currentProduct: {},
   products: [],
+  error: null,
   fetchProducts: async () => {
     try {
       const url = new URL(

@@ -76,7 +76,10 @@ const FormDescription = forwardRef(({ className, ...props }, ref) => {
   return (
     <p
       ref={ref}
-      className={classNames("text-sm text-muted-foreground", className)}
+      className={classNames(
+        "text-sm font-secondary text-muted-foreground",
+        className
+      )}
       {...props}
     />
   );
@@ -94,7 +97,10 @@ const FormMessage = forwardRef(({ className, children, ...props }, ref) => {
   return (
     <p
       ref={ref}
-      className={classNames("text-sm font-medium text-destructive", className)}
+      className={classNames(
+        "text-sm font-medium font-secondary text-destructive",
+        className
+      )}
       {...props}
     >
       {body}

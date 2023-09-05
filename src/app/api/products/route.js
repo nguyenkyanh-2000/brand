@@ -9,7 +9,10 @@ export async function GET() {
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data, error } = await supabase.from("product").select("*");
-    if (error) throw new ApiError(error.status, error.message);
+    if (error) {
+      if (!error.status) error.status = 400;
+      throw new ApiError(error.status, error.message);
+    }
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
@@ -34,7 +37,10 @@ export async function POST(request) {
     // User do not have sufficient rights to edit the products.
     if (error?.code === "42501")
       throw new ApiError(401, "User do not have sufficient rights");
-    if (error) throw new ApiError(error.status, error.message);
+    if (error) {
+      if (!error.status) error.status = 400;
+      throw new ApiError(error.status, error.message);
+    }
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(

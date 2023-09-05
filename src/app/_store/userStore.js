@@ -3,14 +3,47 @@ import { persist } from "zustand/middleware";
 
 export const useUserStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isAuthenticated: false,
       isAdmin: false,
       error: null,
+      updateUser: async (data) => {
+        try {
+          const url = new URL(
+            `/api/users/${get().user.user_id}`,
+            process.env.NEXT_PUBLIC_LOCATION_ORIGIN
+          );
+          const options = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          const result = await res.json();
+          if (res.status !== 200) throw new Error(result.message);
+          else
+            set({
+              user: {
+                email: get().user.email,
+                user_id: get().user.user_id,
+                ...data,
+              },
+              error: null,
+            });
+        } catch (error) {
+          console.log(error);
+          set({ error: error.message });
+        }
+      },
       register: async (data) => {
         try {
-          const url = `${process.env.NEXT_PUBLIC_LOCATION_ORIGIN}/api/auth/register`;
+          const url = new URL(
+            "/api/auth/register",
+            process.env.NEXT_PUBLIC_LOCATION_ORIGIN
+          );
           const options = {
             method: "POST",
             headers: {
@@ -42,7 +75,7 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) set({ error: result.message });
+          if (res.status !== 200) throw new Error(result.message);
           else {
             set({
               user: result.data,
@@ -70,8 +103,9 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) set({ error: result.message });
+          if (res.status !== 200) throw new Error(result.message);
           else {
+            localStorage.removeItem("userStorage");
             set({
               user: null,
               isAuthenticated: false,
@@ -85,6 +119,7 @@ export const useUserStore = create(
         }
       },
     }),
+
     { name: "userStorage" }
   )
 );

@@ -71,7 +71,7 @@ function RegisterPage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel for="password">Password</FormLabel>
+                <FormLabel htmlFor="password">Password</FormLabel>
                 <FormControl>
                   <Input
                     id="password"
@@ -88,7 +88,7 @@ function RegisterPage() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel for="passwordConfirmation">
+                <FormLabel htmlFor="passwordConfirmation">
                   Confirm your password
                 </FormLabel>
                 <FormControl>
@@ -108,7 +108,7 @@ function RegisterPage() {
               checked={passwordVisibility}
               onCheckedChange={() => setPasswordVisibility(!passwordVisibility)}
             />
-            <Label for="c1">Show password?</Label>
+            <Label htmlFor="c1">Show password?</Label>
           </div>
           <Button variant="default" type="submit">
             Register now

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import BrandLogo from "../../_components/atoms/typography/BrandLogo";
@@ -27,7 +26,10 @@ import { Button } from "@/app/_components/atoms/button/Button";
 function LoginPage() {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const router = useRouter();
-  const form = useForm({ resolver: zodResolver(loginSchema) });
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
 
   const { login, error } = useUserStore((state) => {
     return { login: state.login, error: state.error };
@@ -58,7 +60,7 @@ function LoginPage() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel for="email">Email</FormLabel>
+                <FormLabel htmlFor="email">Email</FormLabel>
                 <FormControl>
                   <Input id="email" {...field} />
                 </FormControl>
@@ -71,7 +73,7 @@ function LoginPage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel for="password">Password</FormLabel>
+                <FormLabel htmlFor="password">Password</FormLabel>
                 <FormControl>
                   <Input
                     id="password"
@@ -93,7 +95,7 @@ function LoginPage() {
                   setPasswordVisibility(!passwordVisibility)
                 }
               />
-              <Label for="c1">Show password?</Label>
+              <Label htmlFor="c1">Show password?</Label>
             </div>
             <Link
               href={"#"}

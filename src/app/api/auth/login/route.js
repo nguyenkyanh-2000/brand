@@ -26,16 +26,20 @@ export async function POST(request) {
       .select("*")
       .eq("user_id", userCredentials.data.user.id)
       .single();
-    if (userProfile.error)
+    if (userProfile.error) {
+      if (!userProfile.error.status) error.status = 400;
       throw new ApiError(userProfile.error.status, userProfile.error.message);
+    }
     // Check if the logged in user is an admin. If yes, the userProfile will be added an isAdmin = true.
     // HACKY
     const isAdmin = await supabase
       .from("admin")
       .select("*")
       .eq("user_id", userCredentials.data.user.id);
-    if (isAdmin.error)
+    if (isAdmin.error) {
+      if (!isAdmin.error.status) error.status = 400;
       throw new ApiError(isAdmin.error.status, isAdmin.error.message);
+    }
     if (isAdmin.data.length) userProfile.data.isAdmin = true;
     else userProfile.data.isAdmin = false;
     return NextResponse.json(userProfile);

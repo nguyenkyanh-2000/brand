@@ -9,7 +9,10 @@ export async function POST() {
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { error } = await supabase.auth.signOut();
-    if (error) throw new ApiError(error.status, error.message);
+    if (error) {
+      if (!error.status) error.status = 400;
+      throw new ApiError(error.status, error.message);
+    }
     return NextResponse.json({ message: "Logout successfully" });
   } catch (error) {
     return NextResponse.json(
@@ -17,10 +20,4 @@ export async function POST() {
       { status: error.statusCode }
     );
   }
-}
-
-export async function GET() {
-  return NextResponse.json({
-    message: "Here is the logout page!",
-  });
 }
