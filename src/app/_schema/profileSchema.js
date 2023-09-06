@@ -1,28 +1,19 @@
 const z = require("zod");
 
-const FirstNameSchema = z
-  .string({
-    invalid_type_error: "The input first name is not a string.",
-    required_error: "Missing first name.",
-  })
-  .min(2)
-  .max(50);
+const FirstNameSchema = z.string({
+  invalid_type_error: "The input first name is not a string.",
+  required_error: "Missing first name.",
+});
 
-const LastNameSchema = z
-  .string({
-    invalid_type_error: "The input last name is not a string.",
-    required_error: "Missing last name.",
-  })
-  .min(2)
-  .max(50);
+const LastNameSchema = z.string({
+  invalid_type_error: "The input last name is not a string.",
+  required_error: "Missing last name.",
+});
 
-const AddressSchema = z
-  .string({
-    invalid_type_error: "The input name is not a string.",
-    required_error: "Missing address.",
-  })
-  .min(5)
-  .max(100);
+const AddressSchema = z.string({
+  invalid_type_error: "The input name is not a string.",
+  required_error: "Missing address.",
+});
 
 const DateOfBirthSchema = z.coerce
   .date({

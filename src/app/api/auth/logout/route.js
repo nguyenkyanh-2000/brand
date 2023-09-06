@@ -13,10 +13,14 @@ export async function POST() {
       if (!error.status) error.status = 400;
       throw new ApiError(error.status, error.message);
     }
-    return NextResponse.json({ message: "Logout successfully" });
+    return NextResponse.json({
+      error: null,
+      status: 200,
+      message: "Logout successfully.",
+    });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }

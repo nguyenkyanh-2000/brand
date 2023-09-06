@@ -10,8 +10,8 @@ export async function GET(request) {
     const filteredParams = filterSearchParams(request.nextUrl, allowedParams);
     let { page, limit } = filteredParams;
     // Ensure page and limit are numbers
-    page = Number(page);
-    limit = Number(limit);
+    page = Number(page) || 1;
+    limit = Number(limit) || 10;
     const offset = (page - 1) * limit;
     const supabase = createRouteHandlerClient({ cookies });
     // Supabase uses 0-based index and equal on both side for "range".
@@ -25,9 +25,12 @@ export async function GET(request) {
       throw new ApiError(error.status, error.message);
     } else {
       const res = {
-        data: { users: data },
-        currentPage: page,
-        totalPages: Math.ceil(count / limit),
+        error: null,
+        data: {
+          users: data,
+          currentPage: page,
+          totalPages: Math.ceil(count / limit),
+        },
         status: 200,
         message: "OK",
       };
@@ -35,7 +38,7 @@ export async function GET(request) {
     }
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }

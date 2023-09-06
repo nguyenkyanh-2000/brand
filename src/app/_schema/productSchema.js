@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const validCategories = ["furniture", "clothing", "cosmetic", "stationery"];
+
 const productSchema = z
   .object({
     name: z.string({
@@ -13,6 +15,10 @@ const productSchema = z
     price: z.number({
       invalid_type_error: "Wrong type of data for price.",
       required_error: "Missing price for the product.",
+    }),
+    category: z.enum(validCategories, {
+      invalid_enum_error: "Invalid category for the product.",
+      required_error: "Missing category for the product.",
     }),
   })
   .strict();

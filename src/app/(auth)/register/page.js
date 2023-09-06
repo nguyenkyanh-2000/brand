@@ -27,7 +27,7 @@ function RegisterPage() {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registrationSchema),
-    defaultValues: { email: "", password: "", confirm },
+    defaultValues: { email: "", password: "", confirmPassword: "" },
   });
   const { registerUser, error } = useUserStore((state) => {
     return { registerUser: state.register, error: state.error };

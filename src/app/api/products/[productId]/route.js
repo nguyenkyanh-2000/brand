@@ -4,18 +4,20 @@ import { cookies } from "next/headers";
 import { ApiError } from "next/dist/server/api-utils";
 import productSchema from "@/app/_schema/productSchema";
 import transformedZodErrors from "@/app/_utils/transformedZodError";
+import { checkProductExistence } from "./checkProductExistence";
 
 export async function GET(request, context) {
   try {
-    const productId = context.params.id;
+    const productId = context.params.productId;
     const supabase = createRouteHandlerClient({ cookies });
+    // Check if the product exists
+    const productExisted = await checkProductExistence(supabase, productId);
+    if (!productExisted) throw new ApiError(400, "Product does not exist!");
     const { data, error } = await supabase
       .from("product")
       .select("*")
       .eq("id", productId)
       .maybeSingle();
-    // Check if the product exists
-    if (!data) throw new ApiError(400, "The product does not exist!");
     if (error) {
       if (!error.status) error.status = 400;
       throw new ApiError(error.status, error.message);
@@ -24,19 +26,18 @@ export async function GET(request, context) {
       error: null,
       data: { product: data },
       status: 200,
-      message: "OK",
+      message: "Get all products successfully",
     });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }
 }
-
 export async function PUT(request, context) {
   try {
-    const productId = context.params.id;
+    const productId = context.params.productId;
     const supabase = createRouteHandlerClient({ cookies });
     // Request's body validation. Always return 400 error if invalid.
     let product = await request.json();
@@ -44,6 +45,9 @@ export async function PUT(request, context) {
     if (result.error) throw transformedZodErrors(result.error);
     else product = result.data;
     // Check if the product exists
+    const productExisted = await checkProductExistence(supabase, productId);
+    if (!productExisted) throw new ApiError(400, "Product does not exist!");
+    // Update the product
     const { data, error } = await supabase
       .from("product")
       .update(product)
@@ -53,8 +57,6 @@ export async function PUT(request, context) {
     // User do not have sufficient rights to edit the products.
     if (error?.code === "42501")
       throw new ApiError(401, "User do not have sufficient rights");
-    // Cannot find the product to update => No returning product => Hacky?
-    if (!data) throw new ApiError(400, "The product cannot be updated!");
     if (error) {
       if (!error.status) error.status = 400;
       throw new ApiError(error.status, error.message);
@@ -67,7 +69,7 @@ export async function PUT(request, context) {
     });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }
@@ -75,8 +77,11 @@ export async function PUT(request, context) {
 
 export async function DELETE(request, context) {
   try {
-    const productId = context.params.id;
+    const productId = context.params.productId;
     const supabase = createRouteHandlerClient({ cookies });
+    // Check if the product exists
+    const productExisted = await checkProductExistence(supabase, productId);
+    if (!productExisted) throw new ApiError(400, "Product does not exist!");
     const { data, error } = await supabase
       .from("product")
       .delete()
@@ -86,8 +91,6 @@ export async function DELETE(request, context) {
     // User do not have sufficient rights to edit the products.
     if (error?.code === "42501")
       throw new ApiError(401, "User do not have sufficient rights");
-    // Cannot find the product to delete => No returning product => Hacky?
-    if (!data) throw new ApiError(400, "The product cannot be deleted!");
     if (error) {
       if (!error.status) error.status = 400;
       throw new ApiError(error.status, error.message);
@@ -100,7 +103,7 @@ export async function DELETE(request, context) {
     });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }

@@ -21,11 +21,14 @@ export async function POST(request) {
     if (data.user?.identities?.length === 0)
       throw new ApiError(400, "User already existed!");
     return NextResponse.json({
-      message: "Register user successfully",
+      error: null,
+      data,
+      status: 200,
+      message: "User registered successfully.",
     });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }

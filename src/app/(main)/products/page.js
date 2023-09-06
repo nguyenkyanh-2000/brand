@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SplashScreenImage1 } from "../../../../public/images";
 import ProductBanner from "../../_components/atoms/typography/ProductBanner";
 import FeatureSection from "../../_components/organisms/FeatureSection";

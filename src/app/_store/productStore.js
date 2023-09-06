@@ -4,15 +4,17 @@ export const useProductStore = create((set) => ({
   currentProduct: {},
   products: [],
   error: null,
-  fetchProducts: async () => {
+  fetchProducts: async (page = 1, limit = 10) => {
     try {
       const url = new URL(
         "/api/products",
         process.env.NEXT_PUBLIC_LOCATION_ORIGIN
       );
+      url.searchParams.set("page", page);
+      url.searchParams.set("limit", limit);
       const res = await fetch(url);
-      const data = await res.json();
-      set({ products: data });
+      const result = await res.json();
+      set({ products: result.data.products });
     } catch (error) {
       console.log(error);
     }

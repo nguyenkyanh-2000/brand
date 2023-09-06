@@ -23,13 +23,14 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) throw new Error(result.message);
+          console.log(result);
+          if (result.error) throw new Error(result.error.message);
           else
             set({
               user: {
                 email: get().user.email,
                 user_id: get().user.user_id,
-                ...data,
+                ...result.data.user,
               },
               error: null,
             });
@@ -53,7 +54,7 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) throw new Error(result.message);
+          if (result.error) throw new Error(result.error.message);
           else set({ error: null });
         } catch (error) {
           console.log(error);
@@ -75,12 +76,12 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) throw new Error(result.message);
+          if (result.error) throw new Error(result.error.message);
           else {
             set({
-              user: result.data,
+              user: result.data.user,
               isAuthenticated: true,
-              isAdmin: result.data.isAdmin,
+              isAdmin: result.data.user.isAdmin,
               error: null,
             });
           }
@@ -103,7 +104,7 @@ export const useUserStore = create(
           };
           const res = await fetch(url, options);
           const result = await res.json();
-          if (res.status !== 200) throw new Error(result.message);
+          if (result.error) throw new Error(result.error.message);
           else {
             localStorage.removeItem("userStorage");
             set({

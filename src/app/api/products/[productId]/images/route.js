@@ -1,13 +1,17 @@
-import { NextResponse } from "next/server";
-import productSchema from "@/app/_schema/productSchema";
-import transformedZodErrors from "@/app/_utils/transformedZodError";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { ApiError } from "next/dist/server/api-utils";
+import { checkProductExistence } from "../checkProductExistence";
+import productImageSchema from "@/app/_schema/productImageSchema";
+import transformedZodErrors from "@/app/_utils/transformedZodError";
 import { filterSearchParams } from "@/app/_utils/filterSearchParams";
 
-export async function GET(request) {
+export async function GET(request, context) {
   try {
+    const productId = context.params.productId;
+    const supabase = createRouteHandlerClient({ cookies });
+    // Filter search params
     const allowedParams = ["page", "limit"];
     const filteredParams = filterSearchParams(request.nextUrl, allowedParams);
     let { page, limit } = filteredParams;
@@ -15,29 +19,28 @@ export async function GET(request) {
     page = Number(page) || 1;
     limit = Number(limit) || 10;
     const offset = (page - 1) * limit;
-    const supabase = createRouteHandlerClient({ cookies });
-    // Supabase uses 0-based index and equal on both side for "range".
+    // Check if the product exists
+    const productExisted = await checkProductExistence(supabase, productId);
+    if (!productExisted) throw new ApiError(400, "Product does not exist!");
     const { data, count, error } = await supabase
-      .from("product")
+      .from("product_image")
       .select("*", { count: "exact" })
+      .eq("product_id", productId)
       .range(offset, offset + limit - 1);
-
     if (error) {
       if (!error.status) error.status = 400;
       throw new ApiError(error.status, error.message);
-    } else {
-      const res = {
-        error: null,
-        data: {
-          products: data,
-          currentPage: page,
-          totalPages: Math.ceil(count / limit),
-        },
-        status: 200,
-        message: "OK",
-      };
-      return NextResponse.json(res);
     }
+    return NextResponse.json({
+      error: null,
+      data: {
+        product_images: data,
+        currentPage: page,
+        totalPages: Math.ceil(count / limit),
+      },
+      status: 200,
+      message: "Get all images for the product successfully.",
+    });
   } catch (error) {
     return NextResponse.json(
       { error: { message: error.message } },
@@ -45,19 +48,23 @@ export async function GET(request) {
     );
   }
 }
-
-export async function POST(request) {
+export async function POST(request, context) {
   try {
+    const productId = context.params.productId;
     const supabase = createRouteHandlerClient({ cookies });
-    // Request's body validation. Always return 400 error if invalid.
-    let product = await request.json();
-    const result = productSchema.safeParse(product);
+    // Check if the product exists
+    const productExisted = await checkProductExistence(supabase, productId);
+    if (!productExisted) throw new ApiError(400, "Product does not exist!");
+    // Validate data
+    let productImage = await request.json();
+    const result = productImageSchema.safeParse(productImage);
     if (result.error) throw transformedZodErrors(result.error);
-    else product = result.data;
+    else productImage = { product_id: productId, ...result.data };
     const { data, error } = await supabase
-      .from("product")
-      .insert(product)
-      .select();
+      .from("product_image")
+      .insert(productImage)
+      .select()
+      .maybeSingle();
     // User do not have sufficient rights to edit the products.
     if (error?.code === "42501")
       throw new ApiError(401, "User do not have sufficient rights");
@@ -67,9 +74,9 @@ export async function POST(request) {
     }
     return NextResponse.json({
       error: null,
-      data: { product: data },
+      data: { product_image: data },
       status: 200,
-      message: "OK",
+      message: "Upload a new image for the product successfully.",
     });
   } catch (error) {
     return NextResponse.json(

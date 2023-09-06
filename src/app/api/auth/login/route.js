@@ -42,17 +42,16 @@ export async function POST(request) {
     }
     if (isAdmin.data.length) userProfile.data.isAdmin = true;
     else userProfile.data.isAdmin = false;
-    return NextResponse.json(userProfile);
+    return NextResponse.json({
+      error: null,
+      data: { user: userProfile.data },
+      status: 200,
+      message: "Login successfully.",
+    });
   } catch (error) {
     return NextResponse.json(
-      { message: error.message },
+      { error: { message: error.message } },
       { status: error.statusCode }
     );
   }
-}
-
-export async function GET() {
-  return NextResponse.json({
-    message: "Here is the login page!",
-  });
 }
