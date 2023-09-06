@@ -63,8 +63,7 @@ function ProfilePage() {
     }
   };
 
-  if (!isAuthenticated && !localStorage.getItem("isAuthenticated"))
-    redirect("/login");
+  if (!isAuthenticated) redirect("/login");
 
   return (
     <div className="flex flex-col mt-10">
