@@ -17,6 +17,7 @@ export const useProductStore = create((set) => ({
       set({ products: result.data.products });
     } catch (error) {
       console.log(error);
+      set({ error: error.message });
     }
   },
   fetchProductById: async (id) => {
