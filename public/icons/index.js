@@ -7,3 +7,4 @@ export { default as ExitIcon } from "./exit.svg";
 export { default as SearchIcon } from "./search.svg";
 export { default as FacebookIcon } from "./facebook.svg";
 export { default as GoogleIcon } from "./google.svg";
+export { default as HomeIcon } from "./home.svg";

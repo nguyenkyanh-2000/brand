@@ -14,33 +14,17 @@ function Footer() {
               About
             </a>
           </div>
-          {/* Blog */}
+
+          {/* Careers */}
           <div className="px-5 py-2">
             <a
               href="#"
               className="text-base leading-6 text-gray-500 hover:text-gray-900"
             >
-              Blog
+              Careers
             </a>
           </div>
-          {/* Team */}
-          <div className="px-5 py-2">
-            <a
-              href="#"
-              className="text-base leading-6 text-gray-500 hover:text-gray-900"
-            >
-              Team
-            </a>
-          </div>
-          {/* Pricing */}
-          <div className="px-5 py-2">
-            <a
-              href="#"
-              className="text-base leading-6 text-gray-500 hover:text-gray-900"
-            >
-              Pricing
-            </a>
-          </div>
+
           {/* Contact */}
           <div className="px-5 py-2">
             <a

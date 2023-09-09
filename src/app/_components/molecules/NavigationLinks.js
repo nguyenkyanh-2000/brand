@@ -8,7 +8,7 @@ function NavigationLinks({ directions }) {
         <AnimatedUnderlineLink
           key={index}
           name={direction.name}
-          textSize="2xl"
+          textSize={`[20px]`}
           to={direction.to}
         />
       ))}

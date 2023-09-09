@@ -7,6 +7,21 @@ import SplashScreen from "./_components/organisms/SplashScreen";
 import BodySection from "./_components/organisms/BodySection";
 import SlideIn from "./_components/animation/SlideIn";
 import Footer from "./_components/organisms/Footer";
+import NavigationLinks from "./_components/molecules/NavigationLinks";
+import SearchDialog from "./_components/organisms/SearchDialog";
+import NavigationIconsBar from "./_components/molecules/NavigationIconsBar";
+import NavMenu from "./_components/molecules/NavMenu";
+import { CartIcon } from "../../public/icons";
+import { MoonIcon } from "../../public/icons";
+
+const directions = [
+  { name: "Home", to: "/" },
+  { name: "Products", to: "/products" },
+  { name: "About", to: "/about" },
+  { name: "Contact", to: "/contact" },
+];
+
+const icons = [{ icon: <CartIcon width={24} height={24} />, link: "#" }];
 
 function HomePage() {
   const [isSplashScreenPlayed, setIsSplashScreenPlayed] = useState(false);
@@ -31,7 +46,21 @@ function HomePage() {
         <div className="flex flex-col gap-20">
           <div className="flex flex-col w-screen gap-20 px-16 pt-10 max-sm:px-5">
             <SlideIn direction="down">
-              <Header />
+              <Header>
+                <div className="max-xl:hidden">
+                  <NavigationLinks directions={directions} />
+                </div>
+                <div className="flex max-xl:hidden gap-8">
+                  <SearchDialog />
+                  <NavigationIconsBar icons={icons} />
+                </div>
+                <div className="hidden max-xl:flex gap-8">
+                  <SearchDialog />
+                  <NavMenu>
+                    <NavigationIconsBar icons={icons} />
+                  </NavMenu>
+                </div>
+              </Header>
             </SlideIn>
             <HeroSection isSplashScreenPlayed={isSplashScreenPlayed} />
             <BodySection />

@@ -1,17 +1,20 @@
-import React from "react";
-import IconButton from "../atoms/button/IconButton";
-import { MoonIcon, HeartIcon, CartIcon } from "../../../../public/icons";
-import UserHoverCard from "./UserHoverCard";
+"use client";
 
-function NavigationIcons() {
+import React from "react";
+import UserHoverCard from "./UserHoverCard";
+import Link from "next/link";
+
+function NavigationIconsBar({ icons }) {
   return (
     <div className="flex items-center justify-center gap-8">
-      <IconButton width={24} height={24} Icon={MoonIcon} />
-      <IconButton width={24} height={24} Icon={HeartIcon} />
-      <IconButton width={24} height={24} Icon={CartIcon} />
+      {icons.map((icon, index) => (
+        <Link href={icon.link} key={index} onClick={icon.onClick}>
+          {icon.icon}
+        </Link>
+      ))}
       <UserHoverCard />
     </div>
   );
 }
 
-export default NavigationIcons;
+export default NavigationIconsBar;
